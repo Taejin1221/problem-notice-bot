@@ -1,0 +1,44 @@
+name: Run Python Script Daily
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 한국 시간 오전 9시 (UTC 0시)
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 현재 레포지토리 체크아웃
+      - name: Check out current repository
+        uses: actions/checkout@v3
+
+      # group-solver-checker 레포지토리 체크아웃
+      - name: Check out Group-Solver-Chcker repository
+        uses: actions/checkout@v3
+        with:
+          repository: taejin1221/boj-group-solver-checker
+          path: ./group_solver_checker
+
+      # PYTHONPATH에 ./group_solver_checker 추가
+      - name: Add group_solver_checker to PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/group_solver_checker" >> $GITHUB_ENV
+
+      # Python 설치
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      # 의존성 설치
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Python 스크립트 실행
+      - name: Run Python script
+        env:
+          WEBHOOK_ID: ${{ secrets.WEBHOOK_ID }}
+          WEBHOOK_TOKEN: ${{ secrets.WEBHOOK_TOKEN }}
+        run: python send_message.py
