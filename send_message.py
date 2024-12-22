@@ -27,7 +27,7 @@ problem = get_random_defence(gold_handles, "g")[0]
 problem_info = get_problem_info(problem)
 content += f"골드: [BOJ {problem}: {problem_info['titleKo']}](https://www.acmicpc.net/problem/{problem})\n"
 
-problem = get_random_defence(gold_handles, "s")[0]
+problem = get_random_defence(silver_handles, "s")[0]
 problem_info = get_problem_info(problem)
 content += f"실버: [BOJ {problem}: {problem_info['titleKo']}](https://www.acmicpc.net/problem/{problem})\n"
 
