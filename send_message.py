@@ -1,5 +1,4 @@
 import json
-import locale
 import os
 from datetime import datetime
 
@@ -11,11 +10,10 @@ WEBHOOK_TOKEN = os.environ.get("WEBHOOK_TOKEN")
 
 URL = f"https://discord.com/api/webhooks/{WEBHOOK_ID}/{WEBHOOK_TOKEN}"
 
-locale.setlocale(locale.LC_TIME, 'ko_KR.UTF-8')
 today = datetime.today()
 weekday_name = today.strftime('%A')
 
-content = f"# '{today.year % 100}. {today.month}. {today.day}.({weekday_name[:-2]}) 오늘의 문제\n"
+content = f"# '{today.year % 100}. {today.month}. {today.day}.({weekday_name[:3]}) 오늘의 문제\n"
 
 with open("handle_list/gold_handle_list.json", "rt") as f:
     gold_handles = json.load(f)["handles"]
