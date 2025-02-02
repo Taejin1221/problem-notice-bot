@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 from solved_ac_api import get_random_defence, get_problem_info
@@ -10,7 +10,7 @@ WEBHOOK_TOKEN = os.environ.get("WEBHOOK_TOKEN")
 
 URL = f"https://discord.com/api/webhooks/{WEBHOOK_ID}/{WEBHOOK_TOKEN}"
 
-today = datetime.today()
+today = datetime.today() + timedelta(days=1)
 weekday_name = today.strftime('%A')
 
 content = f"# '{today.year % 100}. {today.month}. {today.day}.({weekday_name[:3]}) 오늘의 문제\n"
